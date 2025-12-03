@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Shop | Django E-commerce Base</title>
+    </head>
+    <body>
+        <h1>Django E-commerce Base Shop!</h1>
+         {% if products %}
+        <ul>
+            {% for product in products %}
+                <li>
+                    <strong>
+                        <a href="{% url 'product_detail' slug=product.slug %}">
+                        {{ product.name }}
+                        </a>
+                    </strong><br>
+                    Category: {{ product.category.name }}<br>
+                    Price: £{{ product.price }}<br>
+                    {{ product.description|default:"No description yet." }}
+                </li>
+                <hr>
+            {% endfor %}
+        </ul>
+        {% else %}
+            <p>No products available yet.</p>
+        {% endif %}
+    </body>
+
+</html>
