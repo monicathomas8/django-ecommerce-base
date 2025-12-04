@@ -16,6 +16,8 @@ class ProductAdmin(admin.ModelAdmin):
         "name",
         "category",
         "price",
+        "stock",
+        "unlimited_stock",
         "is_active",
         "created_at",
     )
@@ -41,6 +43,8 @@ class ProductAdmin(admin.ModelAdmin):
         "description",
         "image",
         "image_preview",
+        "stock",
+        "unlimited_stock",
         "is_active",
     )
 
