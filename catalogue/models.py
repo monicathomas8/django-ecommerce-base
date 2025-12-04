@@ -37,6 +37,12 @@ class Product(models.Model):
     is_active = models.BooleanField(default=True)
     created_at = models.DateTimeField(auto_now_add=True)
 
+    image = models.ImageField(
+        upload_to="products/",
+        blank=True,
+        null=True
+    )
+
     class Meta:
         ordering = ["name"]
 
