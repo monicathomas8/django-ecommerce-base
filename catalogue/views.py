@@ -2,7 +2,7 @@ from django.shortcuts import render, get_object_or_404
 from .models import Product
 
 
-def home(request):
+def products(request):
     """
     Basic homepage that lists all active products.
     This will act as the first simple shop
@@ -14,7 +14,7 @@ def home(request):
     context = {
         'products': products,
     }
-    return render(request, 'catalogue/home.html', context)
+    return render(request, 'catalogue/products.html', context)
 
 
 def product_detail(request, slug):

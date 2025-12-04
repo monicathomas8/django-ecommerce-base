@@ -1,3 +1,8 @@
+{% extends "base.html" %}
+{% block title %}Product Details | My Store{% endblock %}
+
+{% block content %}
+
 <h1>{{ product.name }}</h1>
 
 <p><strong>Category:</strong> {{ product.category.name }}</p>
@@ -6,3 +11,5 @@
 <p>{{ product.description }}</p>
 
 <p><a href="/">Back to shop</a></p>
+
+{% endblock %}
