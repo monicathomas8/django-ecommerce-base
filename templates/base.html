@@ -16,10 +16,11 @@
                 <li><a href="#">Contact</a></li>
                  {% if user.is_authenticated %}
                     <span>Hi, {{ user.username }}</span>
-                    <a href="{% url 'logout' %}">Log out</a>
+                    <li><a href="{% url 'my_account' %}">My Account</a></li>
+                    <ul><a href="{% url 'logout' %}">Log out</a></ul>
                 {% else %}
-                    <a href="{% url 'login' %}">Log in</a>
-                    <a href="{% url 'signup' %}">Sign up</a>
+                    <li><a href="{% url 'login' %}">Log in</a></li>
+                    <li><a href="{% url 'signup' %}">Sign up</a></li>
                 {% endif %}
             </ul>
         </nav>

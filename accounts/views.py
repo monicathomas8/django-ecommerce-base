@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib import messages
 from django.contrib.auth import logout
+from django.contrib.auth.decorators import login_required
 
 
 def signup(request):
@@ -32,3 +33,11 @@ def logout_user(request):
     logout(request)
     messages.info(request, "You have successfully logged out.")
     return redirect('home')
+
+
+@login_required
+def my_account(request):
+    """
+    Displays the account details of the logged-in user.
+    """
+    return render(request, 'accounts/my_account.html', {'user': request.user})

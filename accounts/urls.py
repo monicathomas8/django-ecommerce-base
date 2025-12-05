@@ -10,4 +10,5 @@ urlpatterns = [
         name="login",
     ),
     path("logout/", views.logout_user, name="logout"),
+    path("my-account/", views.my_account, name="my_account"),
 ]

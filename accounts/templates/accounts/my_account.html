@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block title %}My Account{% endblock %}
+
+{% block content %}
+    <h2>My Account</h2>
+
+    <p>Welcome back, {{ user.username }}!</p>
+
+    <p>This is your account dashboard. More features will appear here later.</p>
+
+    <p>
+        <a href="{% url 'products' %}">Go to products</a>
+    </p>
+{% endblock %}
