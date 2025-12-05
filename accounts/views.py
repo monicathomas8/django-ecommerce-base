@@ -3,6 +3,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib import messages
 from django.contrib.auth import logout
 from django.contrib.auth.decorators import login_required
+from orders.models import Order
 
 
 def signup(request):
@@ -40,4 +41,13 @@ def my_account(request):
     """
     Displays the account details of the logged-in user.
     """
-    return render(request, 'accounts/my_account.html', {'user': request.user})
+    orders = Order.objects.filter(user=request.user).order_by('-created_at')
+
+    return render(
+        request,
+        'accounts/my_account.html',
+        {
+            'user': request.user,
+            'orders': orders,
+        },
+    )

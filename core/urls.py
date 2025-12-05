@@ -25,6 +25,7 @@ urlpatterns = [
     path('', views.home, name='home'),                  # Home page
     path('accounts/', include('accounts.urls')),         # User accounts
     path('admin/', admin.site.urls),                     # Admin site
+    path("orders/", include("orders.urls")),               # Order management
     path('products/', include('catalogue.urls')),       # Product catalogue
 ]
 

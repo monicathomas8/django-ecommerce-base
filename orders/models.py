@@ -1,0 +1,59 @@
+from django.db import models
+from django.conf import settings
+from catalogue.models import Product
+
+
+class Order(models.Model):
+    """
+    A basic order model that can be reused across projects.
+    You can extend this later with shipping details, payment info, etc.
+    """
+    user = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.SET_NULL,
+        related_name='orders',
+        null=True,
+        blank=True
+    )
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    # simple status to start with - can extend later
+    STATUS_CHOICES = [
+        ('PENDING', 'Pending'),
+        ('PROCESSING', 'Processing'),
+        ('COMPLETED', 'Completed'),
+        ('CANCELLED', 'Cancelled'),
+    ]
+    status = models.CharField(
+        max_length=20,
+        choices=STATUS_CHOICES,
+        default='PENDING',
+    )
+
+    def __str__(self):
+        return f"Order #{self.id} ({self.status})"
+
+
+class OrderItem(models.Model):
+    """
+    A single line item within an order, linked to a product.
+    """
+    order = models.ForeignKey(
+        Order,
+        on_delete=models.CASCADE,
+        related_name='items'
+    )
+    product = models.ForeignKey(
+        Product,
+        on_delete=models.PROTECT,
+        related_name='order_items',
+    )
+    quantity = models.PositiveIntegerField(default=1)
+    price = models.DecimalField(max_digits=8, decimal_places=2)
+
+    def __str__(self):
+        return (
+            f"{self.quantity} x {self.product.name} "
+            f"(order #{self.order.id})"
+        )
