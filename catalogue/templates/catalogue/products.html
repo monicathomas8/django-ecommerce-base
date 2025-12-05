@@ -25,6 +25,12 @@
                     Category: {{ product.category.name }}<br>
                     Price: £{{ product.price }}<br>
                     {{ product.description|default:"No description yet." }}
+
+                    <form action="{% url 'add_to_cart' product.id %}" method="post" style="margin-top: 0.5rem;">
+                        {% csrf_token %}
+                        <input type="hidden" name="quantity" value="1">
+                        <button type="submit">Add to cart</button>
+                    </form>
             </li>
             <hr>
         {% endfor %}

@@ -22,4 +22,4 @@ def add_to_cart(request, product_id):
     quantity = int(request.POST.get("quantity", 1))
     cart.add(product=product, quantity=quantity)
 
-    return redirect("cart:cart_detail")
+    return redirect("cart_detail")
