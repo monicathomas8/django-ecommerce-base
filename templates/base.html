@@ -14,8 +14,22 @@
                 <li><a href="{% url 'home' %}">Home</a></li>
                 <li><a href="{% url 'products' %}">Shop</a></li>
                 <li><a href="#">Contact</a></li>
+                 {% if user.is_authenticated %}
+                    <span>Hi, {{ user.username }}</span>
+                    <a href="{% url 'logout' %}">Log out</a>
+                {% else %}
+                    <a href="{% url 'login' %}">Log in</a>
+                    <a href="{% url 'signup' %}">Sign up</a>
+                {% endif %}
             </ul>
         </nav>
+        {% if messages %}
+         <ul class="messages">
+            {% for message in messages %}
+                <li>{{ message }}</li>
+            {% endfor %}
+         </ul>
+        {% endif %}
     </header>
 
     <main>
