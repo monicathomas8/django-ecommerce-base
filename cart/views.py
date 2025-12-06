@@ -36,3 +36,25 @@ def remove_from_cart(request, product_id):
         request.session["cart"] = cart       # Update the session cart
 
     return redirect("cart_detail")
+
+
+@require_POST
+def update_cart(request, product_id):
+    """
+    Update the quantity of a product in the cart.
+    """
+    cart = Cart(request)
+    product = get_object_or_404(Product, id=product_id)
+
+    try:
+        quantity = int(request.POST.get("quantity", 1))
+    except ValueError:
+        quantity = 1
+
+    # If quantity is 0 or less, treat as remove
+    if quantity <= 0:
+        cart.remove(product)
+    else:
+        cart.add(product=product, quantity=quantity, override_quantity=True)
+
+    return redirect("cart_detail")
