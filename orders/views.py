@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from cart.cart import Cart
 from .models import Order, OrderItem
+from django.contrib.auth.decorators import login_required
 
 
 def checkout(request):
@@ -90,3 +91,12 @@ def order_success(request, order_id):
     """
     order = get_object_or_404(Order, id=order_id)
     return render(request, "orders/order_success.html", {"order": order})
+
+
+@login_required
+def my_orders(request):
+    """
+    Show a list of orders for the logged-in user.
+    """
+    orders = Order.objects.filter(user=request.user).order_by("-created_at")
+    return render(request, "orders/my_orders.html", {"orders": orders})

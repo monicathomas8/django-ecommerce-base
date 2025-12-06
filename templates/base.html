@@ -15,6 +15,7 @@
                 {% if user.is_authenticated %}
                     <span>Hi, {{ user.username }}</span>
                     <li><a href="{% url 'my_account' %}">My Account</a></li>
+                    <li><a href="{% url 'my_orders' %}">My orders</a></li>
                     <li><a href="{% url 'logout' %}">Log out</a></li>
                 {% else %}
                     <li><a href="{% url 'login' %}">Log in</a></li>
