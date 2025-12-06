@@ -3,10 +3,35 @@
 {% block title %}Checkout{% endblock %}
 
 {% block content %}
-    <h2>Checkout</h2>
+   <h2>Checkout</h2>
 
-    <p>This is the checkout placeholder page for your reusable base.</p>
-    <p>Later, this will collect shipping details and create an order.</p>
+{% if cart|length > 0 %}
+    <h3>Order Summary</h3>
+
+    <ul>
+        {% for item in cart %}
+            <li>
+                <strong>{{ item.product.name }}</strong><br>
+                Quantity: {{ item.quantity }}<br>
+                Price: £{{ item.price }}<br>
+                Line Total: £{{ item.total_price }}
+            </li>
+            <hr>
+        {% endfor %}
+    </ul>
+
+    <p><strong>Order Total: £{{ cart.get_total_price }}</strong></p>
+
+    <form action="#" method="post">
+        {% csrf_token %}
+        <button type="submit">Place Order</button>
+    </form>
+
+    {% else %}
+        <p>Your cart is empty.</p>
+    {% endif %}
+
+    <p><a href="{% url 'cart_detail' %}">Back to cart</a></p>
 
     <p>
         <a href="{% url 'products' %}">Back to products</a>
