@@ -15,6 +15,16 @@ class Order(models.Model):
         null=True,
         blank=True
     )
+
+    # Basic customer / shipping details
+    full_name = models.CharField(max_length=200)
+    email = models.EmailField()
+    address_line1 = models.CharField(max_length=255)
+    address_line2 = models.CharField(max_length=255, blank=True)
+    city = models.CharField(max_length=100)
+    postcode = models.CharField(max_length=20)
+    country = models.CharField(max_length=100)
+
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
