@@ -44,6 +44,20 @@ class Order(models.Model):
     def __str__(self):
         return f"Order #{self.id} ({self.status})"
 
+    def total_items(self):
+        """
+        Total number of items in this order.
+        """
+        return sum(item.quantity for item in self.items.all())
+    total_items.short_description = "Items"
+
+    def total_amount(self):
+        """
+        Total value of this order.
+        """
+        return sum(item.quantity * item.price for item in self.items.all())
+    total_amount.short_description = "Total (£)"
+
 
 class OrderItem(models.Model):
     """
