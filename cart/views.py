@@ -23,3 +23,16 @@ def add_to_cart(request, product_id):
     cart.add(product=product, quantity=quantity)
 
     return redirect("cart_detail")
+
+
+def remove_from_cart(request, product_id):
+    """
+    Remove a product from the cart.
+    """
+    cart = request.session.get("cart", {})
+    product_key = str(product_id)
+    if product_key in cart:
+        del cart[product_key]
+        request.session["cart"] = cart       # Update the session cart
+
+    return redirect("cart_detail")

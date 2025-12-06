@@ -27,7 +27,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),                     # Admin site
     path("orders/", include("orders.urls")),               # Order management
     path('products/', include('catalogue.urls')),       # Product catalogue
-    path('cart/', include('cart.urls')),                     # Shopping cart
+    path('cart/', include('cart.urls')),    # Shopping cart
 ]
 
 if settings.DEBUG:
