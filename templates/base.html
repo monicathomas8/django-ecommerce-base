@@ -1,51 +1,54 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %}My store{% endblock %}</title>
-    <link rel="stylesheet" href="#">
-</head>
-<body>
-    <header>
-        <h1>Django E-commerce Base</h1>
-        <nav>
-            <ul>
-                <li><a href="{% url 'home' %}">Home</a></li>
-                {% if user.is_authenticated %}
-                    <span>Hi, {{ user.username }}</span>
-                    <li><a href="{% url 'my_account' %}">My Account</a></li>
-                    <li><a href="{% url 'my_orders' %}">My orders</a></li>
-                    <li><a href="{% url 'logout' %}">Log out</a></li>
-                {% else %}
-                    <li><a href="{% url 'login' %}">Log in</a></li>
-                    <li><a href="{% url 'signup' %}">Sign up</a></li>
-                {% endif %}
-                <li><a href="#">Contact</a></li>
-                <li><a href="{% url 'products' %}">Shop</a></li>
-                <li><a href="{% url 'checkout' %}">Checkout</a></li>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>{% block title %}My store{% endblock %}</title>
+        <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    </head>
+    <body>
+        <header>
+            <h1>Django E-commerce Base</h1>
+            <nav>
+                <ul>
+                    <li><a href="{% url 'home' %}">Home</a></li>
+                    {% if user.is_authenticated %}
+                        <span>Hi, {{ user.username }}</span>
+                        <li><a href="{% url 'my_account' %}">My Account</a></li>
+                        <li><a href="{% url 'my_orders' %}">My orders</a></li>
+                        <li><a href="{% url 'logout' %}">Log out</a></li>
+                    {% else %}
+                        <li><a href="{% url 'login' %}">Log in</a></li>
+                        <li><a href="{% url 'signup' %}">Sign up</a></li>
+                    {% endif %}
+                    <li><a href="#">Contact</a></li>
+                    <li><a href="{% url 'products' %}">Shop</a></li>
+                    <li><a href="{% url 'checkout' %}">Checkout</a></li>
+                </ul>
+                <a href="{% url 'cart_detail' %}">
+                    Cart {% if cart_items_count %}<span>({{ cart_items_count }})</span>{% endif %}
+                </a>
+
+            </nav>
+            {% if messages %}
+            <ul class="messages">
+                {% for message in messages %}
+                    <li>{{ message }}</li>
+                {% endfor %}
             </ul>
-            <a href="{% url 'cart_detail' %}">
-                Cart {% if cart_items_count %}<span>({{ cart_items_count }})</span>{% endif %}
-            </a>
+            {% endif %}
+        </header>
 
-        </nav>
-        {% if messages %}
-         <ul class="messages">
-            {% for message in messages %}
-                <li>{{ message }}</li>
-            {% endfor %}
-         </ul>
-        {% endif %}
-    </header>
+        <main>
+            {% block content %}
+            <!-- Page specific content will go here -->
+            {% endblock %}
+        </main>
 
-    <main>
-        {% block content %}
-        <!-- Page specific content will go here -->
-        {% endblock %}
-    </main>
-
-    <footer>
-        <p>&copy;2025 My Store. All rights reserved.</p>
-    </footer>
+        <footer>
+            <p>&copy;2025 My Store. All rights reserved.</p>
+        </footer>
+    <script src="{% static 'js/script.js' %}"></script>
+    </body>
 </html>
